@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.0] - 2026-02-13
+
+### Added
+
+- **Unified installation support** via `NFX_META_INSTALL_PROJECT` option
+- **CPack packaging support** via `NFX_META_ENABLE_PACKAGING` option
+  - Source packages (TGZ, ZIP)
+  - Binary archive (TGZ)
+  - DEB package for Debian/Ubuntu systems
+  - RPM package for RedHat/Fedora systems
+- Single unified CMake export (`nfx-meta-targets`) for all enabled libraries
+- Complete installation of headers and libraries in one consolidated export set
+- System-wide installation capability with `cmake --install`
+- Support for `find_package(nfx-meta)` after installation
+
 ## [1.0.0] - 2026-02-11
 
 ### Added

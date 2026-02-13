@@ -35,7 +35,7 @@ include(FetchContent)
 
 FetchContent_Declare(nfx-meta
     GIT_REPOSITORY https://github.com/nfx-libs/nfx-meta.git
-    GIT_TAG        v1.0.0
+    GIT_TAG        1.1.0
 )
 FetchContent_MakeAvailable(nfx-meta)
 
@@ -113,6 +113,55 @@ target_link_libraries(your-target PRIVATE
 | `NFX_META_BUILD_DOCUMENTATION`     | Build documentation for enabled libraries | `OFF`   |
 | `NFX_META_WITH_JSON_SERIALIZATION` | Enable JSON support in serialization      | `OFF`   |
 
+### Installation
+
+| Option                      | Description                          | Default |
+| --------------------------- | ------------------------------------ | ------- |
+| `NFX_META_INSTALL_PROJECT`  | Install nfx-meta with unified export | `OFF`   |
+| `NFX_META_ENABLE_PACKAGING` | Enable CPack packaging support       | `OFF`   |
+
+**Note:** When `NFX_META_INSTALL_PROJECT=ON`, all enabled libraries are installed together in a single unified CMake export (`nfx-meta-targets`). This avoids CMake export conflicts and provides a clean installation that can be used with `find_package(nfx-meta)`.
+
+## Installation
+
+### Installing the Metapackage
+
+To install nfx-meta system-wide with all libraries:
+
+```bash
+cmake -B build \
+  -DNFX_META_ENABLE_CONTAINERS=ON \
+  -DNFX_META_ENABLE_CPU=ON \
+  -DNFX_META_ENABLE_DATATYPES=ON \
+  -DNFX_META_ENABLE_DATETIME=ON \
+  -DNFX_META_ENABLE_HASHING=ON \
+  -DNFX_META_ENABLE_JSON=ON \
+  -DNFX_META_ENABLE_RESOURCE=ON \
+  -DNFX_META_ENABLE_SERIALIZATION=ON \
+  -DNFX_META_ENABLE_STRINGBUILDER=ON \
+  -DNFX_META_ENABLE_STRINGUTILS=ON \
+  -DNFX_META_WITH_JSON_SERIALIZATION=ON \
+  -DNFX_META_INSTALL_PROJECT=ON \
+  -DCMAKE_BUILD_TYPE=Release
+
+cmake --build build
+sudo cmake --install build
+```
+
+### Using Installed Metapackage
+
+After installation, use it in your project:
+
+```cmake
+cmake_minimum_required(VERSION 3.20)
+project(MyProject)
+
+find_package(nfx-meta REQUIRED)
+
+add_executable(myapp main.cpp)
+target_link_libraries(myapp PRIVATE nfx::meta)
+```
+
 ## Versioning
 
 The metapackage uses **semantic versioning** (MAJOR.MINOR.PATCH):
@@ -148,10 +197,49 @@ cmake -B build \
 # Build
 cmake --build build
 ```
+
+## Packaging
+
+### Creating Distribution Packages
+
+To create binary and source packages (TGZ, DEB, RPM):
+
+```bash
+# Configure with packaging enabled
+cmake -B build \
+  -DNFX_META_ENABLE_CONTAINERS=ON \
+  -DNFX_META_ENABLE_CPU=ON \
+  -DNFX_META_ENABLE_DATATYPES=ON \
+  -DNFX_META_ENABLE_DATETIME=ON \
+  -DNFX_META_ENABLE_HASHING=ON \
+  -DNFX_META_ENABLE_JSON=ON \
+  -DNFX_META_ENABLE_RESOURCE=ON \
+  -DNFX_META_ENABLE_SERIALIZATION=ON \
+  -DNFX_META_ENABLE_STRINGBUILDER=ON \
+  -DNFX_META_ENABLE_STRINGUTILS=ON \
+  -DNFX_META_WITH_JSON_SERIALIZATION=ON \
+  -DNFX_META_INSTALL_PROJECT=ON \
+  -DNFX_META_ENABLE_PACKAGING=ON \
+  -DCMAKE_BUILD_TYPE=Release
+
+# Build the project
+cmake --build build
+
+# Create packages
+cd build
+cpack
+```
+
+This will generate:
+- **Source packages**: `nfx-meta-1.1.0.tar.gz`, `nfx-meta-1.1.0.zip`
+- **Binary archive**: `nfx-meta-1.1.0-Linux.tar.gz`
+- **DEB package** (Linux): `nfx-meta_1.1.0_amd64.deb`
+- **RPM package** (Linux): `nfx-meta-1.1.0-1.x86_64.rpm`
+
 ## License
 
 MIT License - See [LICENSE](LICENSE) file for details
 
 ---
 
-_Updated on February 11, 2026_
+_Updated on February 13, 2026_
