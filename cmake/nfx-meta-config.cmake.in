@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+# nfx-meta unified metapackage configuration
+# All NFX libraries are provided through a single unified export
+
+include("${CMAKE_CURRENT_LIST_DIR}/nfx-meta-targets.cmake")
+
+check_required_components(nfx-meta)
