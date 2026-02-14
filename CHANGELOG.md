@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.2.0] - 2026-02-14
+
+### Changed
+
+- **Updated library versions** to latest tested compatible releases:
+  - nfx-containers: 0.4.1 → 0.5.1
+  - nfx-datatypes: 0.4.0 → 0.4.1 (fixed static library naming consistency)
+  - nfx-datetime: 0.4.2 → 0.5.0 (fixed static library naming consistency)
+  - nfx-hashing: 0.2.0 → 0.3.1
+  - nfx-json: 1.3.4 → 1.4.1
+  - nfx-serialization: 0.9.1 → 0.9.2
+  - nfx-stringbuilder: 0.6.0 → 0.6.2
+  - nfx-stringutils: 0.6.2 → 0.6.4
+
+### Fixed
+
+- Static library naming consistency: removed version suffix from `.a` files (datatypes and datetime now use `libnfx-*-static.a` instead of `libnfx-*-static-x.y.z.a`)
+
 ## [1.1.0] - 2026-02-13
 
 ### Added

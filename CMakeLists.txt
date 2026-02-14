@@ -7,7 +7,7 @@
 # Usage:
 #   FetchContent_Declare(nfx-meta
 #       GIT_REPOSITORY https://github.com/nfx-libs/nfx-meta.git
-#       GIT_TAG        v1.1.0
+#       GIT_TAG        v1.2.0
 #   )
 #   FetchContent_MakeAvailable(nfx-meta)
 #   target_link_libraries(your-target PRIVATE nfx::meta)
@@ -15,7 +15,7 @@
 
 cmake_minimum_required(VERSION 3.20)
 project(nfx-meta
-    VERSION 1.1.0
+    VERSION 1.2.0
     DESCRIPTION "nfx libraries metapackage with locked tested versions"
     HOMEPAGE_URL "https://github.com/nfx-libs/nfx-meta"
 )
@@ -63,16 +63,16 @@ set(CMAKE_FIND_QUIETLY      ON     )
 # Locked dependency versions
 #----------------------------------------------
 
-set(NFX_META_CONTAINERS_VERSION    "0.4.1")
+set(NFX_META_CONTAINERS_VERSION    "0.5.1")
 set(NFX_META_CPU_VERSION           "0.1.4")
-set(NFX_META_DATATYPES_VERSION     "0.4.0")
-set(NFX_META_DATETIME_VERSION      "0.4.2")
-set(NFX_META_HASHING_VERSION       "0.2.0")
-set(NFX_META_JSON_VERSION          "1.3.4")
+set(NFX_META_DATATYPES_VERSION     "0.4.1")
+set(NFX_META_DATETIME_VERSION      "0.5.0")
+set(NFX_META_HASHING_VERSION       "0.3.1")
+set(NFX_META_JSON_VERSION          "1.4.1")
 set(NFX_META_RESOURCE_VERSION      "1.1.0")
-set(NFX_META_SERIALIZATION_VERSION "0.9.1")
-set(NFX_META_STRINGBUILDER_VERSION "0.6.0")
-set(NFX_META_STRINGUTILS_VERSION   "0.6.2")
+set(NFX_META_SERIALIZATION_VERSION "0.9.2")
+set(NFX_META_STRINGBUILDER_VERSION "0.6.2")
+set(NFX_META_STRINGUTILS_VERSION   "0.6.4")
 
 #----------------------------------------------
 # FetchContent dependencies
@@ -484,6 +484,17 @@ if(NFX_META_INSTALL_PROJECT)
         install(DIRECTORY "${CMAKE_BINARY_DIR}/_deps/nfx-resource-src/include/"
             DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
             FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp" PATTERN "*.inl")
+        # Configure and install nfxResourceFunctions.cmake for installed executable
+        configure_file(
+            "${CMAKE_CURRENT_SOURCE_DIR}/cmake/nfxResourceFunctions.cmake.in"
+            "${CMAKE_CURRENT_BINARY_DIR}/nfxResourceFunctions.cmake"
+            @ONLY
+        )
+        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/nfxResourceFunctions.cmake"
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/nfx-meta)
+        # Install nfx-resourcegenerator-cli executable
+        install(TARGETS nfx-resourcegenerator-cli
+            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
     endif()
 
     install(EXPORT nfx-meta-targets
@@ -518,7 +529,7 @@ endif()
 if(NFX_META_ENABLE_PACKAGING)
     # Package output directory
     set(CPACK_PACKAGE_DIRECTORY "${CMAKE_BINARY_DIR}/packages")
-    
+
     # Basic package information
     set(CPACK_PACKAGE_NAME "nfx-meta")
     set(CPACK_PACKAGE_VENDOR "nfx-libs")
@@ -531,7 +542,7 @@ if(NFX_META_ENABLE_PACKAGING)
     set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/nfx-libs/nfx-meta")
     set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
     set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
-    
+
     # Source package configuration
     set(CPACK_SOURCE_PACKAGE_FILE_NAME "nfx-meta-${PROJECT_VERSION}-source")
     set(CPACK_SOURCE_GENERATOR "TGZ;ZIP")
@@ -549,7 +560,7 @@ if(NFX_META_ENABLE_PACKAGING)
         "/private/"
         "~$"
     )
-    
+
     # Binary packages - TGZ always available
     set(CPACK_GENERATOR "TGZ;ZIP")
     set(CPACK_ARCHIVE_COMPONENT_INSTALL OFF)
@@ -564,7 +575,7 @@ if(NFX_META_ENABLE_PACKAGING)
         set(CPACK_DEBIAN_FILE_NAME "nfx-meta_${PROJECT_VERSION}_amd64.deb")
         set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS OFF)
     endif()
-    
+
     # RPM package configuration
     if(UNIX AND NOT APPLE)
         list(APPEND CPACK_GENERATOR "RPM")
@@ -574,17 +585,7 @@ if(NFX_META_ENABLE_PACKAGING)
         set(CPACK_RPM_FILE_NAME "nfx-meta-${PROJECT_VERSION}.x86_64.rpm")
         set(CPACK_RPM_PACKAGE_AUTOREQ OFF)
     endif()
-    
-    # NSIS configuration (Windows installer)
-    if(WIN32)
-        list(APPEND CPACK_GENERATOR "NSIS;NSIS64")
-        set(CPACK_NSIS_DISPLAY_NAME "nfx-meta ${PROJECT_VERSION}")
-        set(CPACK_NSIS_PACKAGE_NAME "nfx-meta")
-        set(CPACK_NSIS_HELP_LINK "https://github.com/nfx-libs/nfx-meta")
-        set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/nfx-libs/nfx-meta")
-        set(CPACK_NSIS_CONTACT "nfx-libs")
-    endif()
-    
+
     include(CPack)
 endif()
 

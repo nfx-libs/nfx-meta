@@ -10,16 +10,16 @@ This metapackage includes the following nfx libraries with locked compatible ver
 
 | Library                                                            | Version | Description                                 |
 | ------------------------------------------------------------------ | ------- | ------------------------------------------- |
-| [nfx-containers](https://github.com/nfx-libs/nfx-containers)       | 0.4.1   | High-performance hash containers            |
+| [nfx-containers](https://github.com/nfx-libs/nfx-containers)       | 0.5.1   | High-performance hash containers            |
 | [nfx-cpu](https://github.com/nfx-libs/nfx-cpu)                     | 0.1.4   | CPU feature detection and utilities         |
-| [nfx-datatypes](https://github.com/nfx-libs/nfx-datatypes)         | 0.4.0   | Common data types (Int128, Decimal)         |
-| [nfx-datetime](https://github.com/nfx-libs/nfx-datetime)           | 0.4.2   | Date, time, and duration types              |
-| [nfx-hashing](https://github.com/nfx-libs/nfx-hashing)             | 0.2.0   | Hashing algorithms and utilities            |
-| [nfx-json](https://github.com/nfx-libs/nfx-json)                   | 1.3.4   | JSON parsing and generation                 |
+| [nfx-datatypes](https://github.com/nfx-libs/nfx-datatypes)         | 0.4.1   | Common data types (Int128, Decimal)         |
+| [nfx-datetime](https://github.com/nfx-libs/nfx-datetime)           | 0.5.0   | Date, time, and duration types              |
+| [nfx-hashing](https://github.com/nfx-libs/nfx-hashing)             | 0.3.1   | Hashing algorithms and utilities            |
+| [nfx-json](https://github.com/nfx-libs/nfx-json)                   | 1.4.1   | JSON parsing and generation                 |
 | [nfx-resource](https://github.com/nfx-libs/nfx-resource)           | 1.1.0   | Resource embedding and management           |
-| [nfx-serialization](https://github.com/nfx-libs/nfx-serialization) | 0.9.1   | C++ type serialization with JSON support    |
-| [nfx-stringbuilder](https://github.com/nfx-libs/nfx-stringbuilder) | 0.6.0   | Efficient string building and concatenation |
-| [nfx-stringutils](https://github.com/nfx-libs/nfx-stringutils)     | 0.6.2   | String manipulation utilities               |
+| [nfx-serialization](https://github.com/nfx-libs/nfx-serialization) | 0.9.2   | C++ type serialization with JSON support    |
+| [nfx-stringbuilder](https://github.com/nfx-libs/nfx-stringbuilder) | 0.6.2   | Efficient string building and concatenation |
+| [nfx-stringutils](https://github.com/nfx-libs/nfx-stringutils)     | 0.6.4   | String manipulation utilities               |
 
 ## Requirements
 
@@ -35,7 +35,7 @@ include(FetchContent)
 
 FetchContent_Declare(nfx-meta
     GIT_REPOSITORY https://github.com/nfx-libs/nfx-meta.git
-    GIT_TAG        1.1.0
+    GIT_TAG        1.2.0
 )
 FetchContent_MakeAvailable(nfx-meta)
 
@@ -231,10 +231,10 @@ cpack
 ```
 
 This will generate:
-- **Source packages**: `nfx-meta-1.1.0.tar.gz`, `nfx-meta-1.1.0.zip`
-- **Binary archive**: `nfx-meta-1.1.0-Linux.tar.gz`
-- **DEB package** (Linux): `nfx-meta_1.1.0_amd64.deb`
-- **RPM package** (Linux): `nfx-meta-1.1.0-1.x86_64.rpm`
+- **Source packages**: `nfx-meta-1.2.0.tar.gz`, `nfx-meta-1.2.0.zip`
+- **Binary archive**: `nfx-meta-1.2.0-Linux.tar.gz`
+- **DEB package** (Linux): `nfx-meta_1.2.0_amd64.deb`
+- **RPM package** (Linux): `nfx-meta-1.2.0-1.x86_64.rpm`
 
 ## License
 
@@ -242,4 +242,4 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 ---
 
-_Updated on February 13, 2026_
+_Updated on February 14, 2026_
