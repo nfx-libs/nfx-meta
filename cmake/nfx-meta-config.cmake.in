@@ -5,16 +5,5 @@
 
 include("${CMAKE_CURRENT_LIST_DIR}/nfx-meta-targets.cmake")
 
-# Create nfx::resource INTERFACE target if nfx-resource was enabled
-if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/nfxResourceFunctions.cmake")
-    if(NOT TARGET nfx::resource)
-        add_library(nfx-resource INTERFACE IMPORTED)
-        set_target_properties(nfx-resource PROPERTIES
-            INTERFACE_INCLUDE_DIRECTORIES "${PACKAGE_PREFIX_DIR}/include"
-        )
-        add_library(nfx::resource ALIAS nfx-resource)
-    endif()
-    include("${CMAKE_CURRENT_LIST_DIR}/nfxResourceFunctions.cmake")
-endif()
-
 check_required_components(nfx-meta)
+
